@@ -10,6 +10,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 @WebServlet("/userLogin")
 public class UserLoginController extends HttpServlet {
@@ -27,6 +28,8 @@ public class UserLoginController extends HttpServlet {
 			boolean isUser = userDao.userLogin();
 			if (isUser) {
 				req.setAttribute("username", user.getEmail());
+				HttpSession session = req.getSession();
+				session.setAttribute("email", user.getEmail());
 				req.getRequestDispatcher("view/home.jsp").forward(req, res);
 //				res.sendRedirect("view/home.jsp");
 			} else {
