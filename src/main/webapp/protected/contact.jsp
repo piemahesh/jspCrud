@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="auth.jsp"></jsp:include>
+
 	<p>${name}</p>
-	<h1>this is about page</h1>
+	<h1>this is contact page</h1>
 </body>
 </html>

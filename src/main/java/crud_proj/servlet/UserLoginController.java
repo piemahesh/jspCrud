@@ -24,13 +24,15 @@ public class UserLoginController extends HttpServlet {
 		User user = new User(email, password);
 		System.out.println(user.toString());
 		UserDao userDao = new UserDao(user);
+		res.setHeader("Cache-Control", "na-cache,no-store");
+		res.setHeader("Expires", "0");
 		try {
 			boolean isUser = userDao.userLogin();
 			if (isUser) {
 				req.setAttribute("username", user.getEmail());
 				HttpSession session = req.getSession();
 				session.setAttribute("email", user.getEmail());
-				req.getRequestDispatcher("view/home.jsp").forward(req, res);
+				req.getRequestDispatcher("/protected/home.jsp").forward(req, res);
 //				res.sendRedirect("view/home.jsp");
 			} else {
 				res.sendRedirect("view/login.jsp");
