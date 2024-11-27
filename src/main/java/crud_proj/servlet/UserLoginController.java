@@ -21,11 +21,12 @@ public class UserLoginController extends HttpServlet {
 
 		String email = req.getParameter("email");
 		String password = req.getParameter("password");
+//		user is created
 		User user = new User(email, password);
 		System.out.println(user.toString());
 		UserDao userDao = new UserDao(user);
-		res.setHeader("Cache-Control", "na-cache,no-store");
-		res.setHeader("Expires", "0");
+//		res.setHeader("Cache-Control", "na-cache,no-store");
+//		res.setHeader("Expires", "0");
 		try {
 			boolean isUser = userDao.userLogin();
 			if (isUser) {

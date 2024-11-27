@@ -21,5 +21,7 @@
 	<a
 		href="${pageContext.servletContext.contextPath}/protected/contact.jsp">contact
 		page </a>
+		<a
+		href="${pageContext.servletContext.contextPath}/protected/wishlists.jsp">add wishlist </a>
 </body>
 </html>
