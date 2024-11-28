@@ -1,5 +1,6 @@
 package crud_proj.servlet;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 import curd_proj.dao.WishListsDao;
@@ -15,7 +16,7 @@ public class WishListController extends HttpServlet {
 
 	private static final long serialVersionUID = -4283235096541994633L;
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		String email = (String) req.getSession().getAttribute("email");
 		System.out.println(email+"this is email from session");
 		User user = new User(email);
@@ -29,6 +30,7 @@ public class WishListController extends HttpServlet {
 			boolean isCreated = wdao.createWishLists();
 			if (isCreated) {
 				System.out.println("wishlists is created");
+				res.sendRedirect("/crud_proj/protected/home.jsp");
 			} else {
 				System.out.println("not created");
 			}

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import curd_proj.dao.UserDao;
+import curd_proj.dao.WishListsDao;
 import curd_proj.model.User;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -32,6 +33,8 @@ public class UserLoginController extends HttpServlet {
 			if (isUser) {
 				req.setAttribute("username", user.getEmail());
 				HttpSession session = req.getSession();
+				WishListsDao wishDao = new WishListsDao(user, null);
+				req.setAttribute("myWishLists", wishDao.getWishLists());
 				session.setAttribute("email", user.getEmail());
 				req.getRequestDispatcher("/protected/home.jsp").forward(req, res);
 //				res.sendRedirect("view/home.jsp");

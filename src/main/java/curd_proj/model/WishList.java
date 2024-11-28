@@ -9,6 +9,10 @@ public class WishList {
 		return "Wishlist [id=" + id + ", count=" + count + ", productName=" + productName + ", productDetails="
 				+ productDetails + ", email=" + email + ", endDate=" + endDate + "]";
 	}
+	
+	public WishList() {
+		// TODO Auto-generated constructor stub
+	}
 
 	public WishList(Integer count, String productName, String productDetails) {
 
