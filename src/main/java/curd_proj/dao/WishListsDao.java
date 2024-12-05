@@ -18,6 +18,10 @@ public class WishListsDao {
 	User user;
 	WishList wishLists;
 
+	public WishListsDao(WishList ws) {
+		this.wishLists = ws;
+	}
+
 	public WishListsDao(User user, WishList wishLists) {
 		this.user = user;
 		this.wishLists = wishLists;
@@ -44,7 +48,7 @@ public class WishListsDao {
 		PreparedStatement ps = cursor.prepareStatement(query);
 		ps.setString(1, user.getEmail());
 		ResultSet rs = ps.executeQuery();
-		List<WishList> myWishList = new ArrayList<WishList>();
+		List<WishList> myWishList = new ArrayList<>();
 		while (rs.next()) {
 			WishList ws = new WishList();
 			ws.setProductName(rs.getString("productName"));
@@ -59,5 +63,36 @@ public class WishListsDao {
 			return myWishList;
 		}
 		return null;
+	}
+
+	public WishList getSpecificWishList() throws SQLException {
+		String query = "select * from wishlists where id=?";
+		PreparedStatement ps = cursor.prepareStatement(query);
+		ps.setInt(1, wishLists.getId());
+		ResultSet rs = ps.executeQuery();
+		if (rs.next()) {
+			WishList ws = new WishList();
+			ws.setProductName(rs.getString("productName"));
+			ws.setProductDetails(rs.getString("productDetails"));
+			ws.setCount(rs.getInt("count"));
+			ws.setEndDate(rs.getString("endDate"));
+			return ws;
+		}
+		return null;
+
+	}
+
+	public boolean updateWishList() throws SQLException {
+		String query = "update wishlists set productName=?, productDetails = ?, count = ?  where id = ?";
+		PreparedStatement ps = cursor.prepareStatement(query);
+		ps.setString(1, wishLists.getProductName());
+		ps.setString(2, wishLists.getProductDetails());
+		ps.setInt(3, wishLists.getCount());
+		ps.setInt(4, wishLists.getId());
+		int rows = ps.executeUpdate();
+		if (rows > 0) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -8,7 +8,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${pageContext.servletContext.contextPath}/assets/css/style.css" rel="stylesheet">
+<link
+	href="${pageContext.servletContext.contextPath}/assets/css/style.css"
+	rel="stylesheet">
 </head>
 <body>
 
@@ -32,7 +34,7 @@
 	<main class="container">
 		<%
 		List<WishList> obj1 = (List<WishList>) request.getAttribute("myWishLists");
-		if(obj1 != null){
+		if (obj1 != null) {
 			for (WishList ws : obj1) {
 				out.print("<div class='card'>");
 				out.print("<p>");
@@ -44,6 +46,10 @@
 				out.print(ws.getProductDetails());
 				out.print("</p>");
 				out.print("<p>");
+				out.print("id: ");
+				out.print(ws.getId());
+				out.print("</p>");
+				out.print("<p>");
 				out.print("dateTime: ");
 				out.print(new TimeStampConverter(ws.getEndDate()).getIndianDate());
 				out.print("</p>");
@@ -51,10 +57,12 @@
 				out.print("count: ");
 				out.print(ws.getCount());
 				out.print("</p>");
+				out.print("<a href=" + pageContext.getServletContext().getContextPath() + "/wishList/update/" + ws.getId()
+				+ "> Edit</a>");
+				out.print("<a> delete</a>");
 				out.print("</div>");
 			}
-		}
-		else{
+		} else {
 			out.print("no more wishLists");
 		}
 		%>

@@ -8,7 +8,7 @@
 </head>
 <body>
 
-	<h1>Put Your Wishlists here</h1>
+	<h1>Edit Your Wishlists here</h1>
 
 	<form method="post" action="${pageContext.servletContext.contextPath}/wishList/create">
 		<input type="text" placeholder="Enter product name "

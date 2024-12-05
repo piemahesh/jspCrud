@@ -16,6 +16,7 @@ public class WishListController extends HttpServlet {
 
 	private static final long serialVersionUID = -4283235096541994633L;
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		String email = (String) req.getSession().getAttribute("email");
 		System.out.println(email+"this is email from session");
