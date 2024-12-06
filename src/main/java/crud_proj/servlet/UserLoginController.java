@@ -33,8 +33,6 @@ public class UserLoginController extends HttpServlet {
 			if (isUser) {
 				req.setAttribute("username", user.getEmail());
 				HttpSession session = req.getSession();
-				WishListsDao wishDao = new WishListsDao(user, null);
-				req.setAttribute("myWishLists", wishDao.getWishLists());
 				session.setAttribute("email", user.getEmail());
 				req.getRequestDispatcher("/protected/home.jsp").forward(req, res);
 //				res.sendRedirect("view/home.jsp");

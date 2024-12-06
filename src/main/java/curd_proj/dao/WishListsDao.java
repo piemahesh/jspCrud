@@ -27,6 +27,10 @@ public class WishListsDao {
 		this.wishLists = wishLists;
 	}
 
+	public WishListsDao(User user) {
+		this.user = user;
+	}
+
 	public boolean createWishLists() throws SQLException {
 
 		String query = "insert into wishlists(email,productName,productDetails,count,endDate) values(?,?,?,?,?)";
@@ -95,4 +99,16 @@ public class WishListsDao {
 		}
 		return false;
 	}
+
+	public boolean deleteWishList() throws SQLException {
+		String query = "delete from wishlists where id = ?";
+		PreparedStatement ps = cursor.prepareStatement(query);
+		ps.setInt(1, wishLists.getId());
+		int rows = ps.executeUpdate();
+		if (rows > 0) {
+			return true;
+		}
+		return false;
+	}
+
 }

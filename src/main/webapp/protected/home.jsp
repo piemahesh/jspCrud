@@ -1,3 +1,5 @@
+<%@page import="curd_proj.model.User"%>
+<%@page import="curd_proj.dao.WishListsDao"%>
 <%@page import="crud_proj.utils.TimeStampConverter"%>
 <%@page import="curd_proj.model.WishList"%>
 <%@page import="java.util.List"%>
@@ -11,6 +13,8 @@
 <link
 	href="${pageContext.servletContext.contextPath}/assets/css/style.css"
 	rel="stylesheet">
+<script type="text/javascript" defer="defer"
+	src="${pageContext.servletContext.contextPath}/assets/js/script.js"></script>
 </head>
 <body>
 
@@ -21,7 +25,13 @@
 		${username}
 	</h1>
 
+	<%
+	String email = (String) request.getSession().getAttribute("email");
+	User user = new User(email);
+	WishListsDao wdao = new WishListsDao(user);
+	%>
 
+	<%=email%>
 	<a href="${pageContext.servletContext.contextPath}/protected/about.jsp">about
 		page </a>
 	<a
@@ -33,7 +43,7 @@
 	<%="<br/>"%>
 	<main class="container">
 		<%
-		List<WishList> obj1 = (List<WishList>) request.getAttribute("myWishLists");
+		List<WishList> obj1 = wdao.getWishLists();
 		if (obj1 != null) {
 			for (WishList ws : obj1) {
 				out.print("<div class='card'>");
@@ -59,7 +69,7 @@
 				out.print("</p>");
 				out.print("<a href=" + pageContext.getServletContext().getContextPath() + "/wishList/update/" + ws.getId()
 				+ "> Edit</a>");
-				out.print("<a> delete</a>");
+				out.print("<button wishListId=" + ws.getId() + " id='deleteBtn'> delete</button>");
 				out.print("</div>");
 			}
 		} else {
